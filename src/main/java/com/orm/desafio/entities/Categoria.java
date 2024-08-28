@@ -1,57 +1,51 @@
-package com.orm.desafio.entities;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+package com.desafio.modeloDominioEORM.entities;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "tb_categoria")
+@Table(name="tb_categoria")
 public class Categoria {
+
+   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+    @Column(columnDefinition = "TEXT")
+    private String descricao;
 
-    private String nome;
-
+    
     @OneToMany(mappedBy = "categoria")
-    private Set<Atividade> atividades = new HashSet<>();
+    private List<Atividade> atividades = new ArrayList<>();
 
-    // Construtores
-    public Categoria() {}
+   
+    public Categoria() {
 
-    public Categoria(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
     }
 
-    // Getters e Setters
-    public Long getId() {
+    public Categoria(Integer id, String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public Set<Atividade> getAtividades() {
+    //collection method get
+    public List<Atividade> getAtividades() {
         return atividades;
-    }
-
-    public void setAtividades(Set<Atividade> atividades) {
-        this.atividades = atividades;
     }
 }
